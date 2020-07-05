@@ -61,6 +61,7 @@ impl InterpreterState {
                 );
             }
             "[" => {
+		// We check for bracket correctness even if we don't need to
                 let mut bracket_counter = 1;
                 let mut index = self.code_ptr;
                 while bracket_counter > 0 && index < self.code.len() {
@@ -74,9 +75,12 @@ impl InterpreterState {
                 if index >= self.code.len() {
                     return InstructionResult::BracketError(self.code_ptr);
                 }
-                self.code_ptr = index - 1;
+		if self.mem.contains_key(&self.mem_ptr) || self.mem[&self.mem_ptr] == 0 {
+                    self.code_ptr = index - 1;
+		}
             }
             "]" => {
+		// We check for bracket correctness even if we don't need to
                 let mut bracket_counter = 1;
                 let mut index = self.code_ptr;
                 while bracket_counter > 0 && index >= 0 {
@@ -90,7 +94,9 @@ impl InterpreterState {
                 if index < 0 {
                     return InstructionResult::BracketError(self.code_ptr);
                 }
-                self.code_ptr = index;
+		if self.mem.contains_key(&self.mem_ptr) && self.mem[&self.mem_ptr] != 0 {
+                    self.code_ptr = index;
+		}
             }
             _ => {}
         };
