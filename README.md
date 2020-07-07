@@ -47,7 +47,7 @@ not generate the rest too).
 An alternative way to estimate how expensive multiplying is. Roughly,
 `cost(a * b) = 6 + cost(a) + cost(b)`, if register allocation works out
 (meaning we'd also have to have 3 registers at all times: one for `a`,
-one for `b`, and one for their product.
+one for `b`, and one for their product).
 
 ```
 generate a here then[>generate b here<-]>

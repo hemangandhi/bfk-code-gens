@@ -10,7 +10,7 @@ fn main() {
 "#;
     for output in interpreter::InterpreterRun::new(code.to_string(), || 0) {
         if let Some(ch) = output {
-	    println!("{}", ch as u8 as char);
+	    print!("{}", ch as u8 as char);
 	}
     }
 }
